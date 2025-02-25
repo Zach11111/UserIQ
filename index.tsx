@@ -6,6 +6,7 @@
 
 import { openModal } from "@utils/modal";
 import definePlugin from "@utils/types";
+import { showToast } from "@webpack/common";
 
 import { settings } from "./settings";
 import { TestModal } from "./test";
@@ -29,9 +30,9 @@ export default definePlugin({
         openModal(props => (
             <TestModal rootProps={props} />
         ), {
-            // onCloseRequest: () => {
-            //     showToast("You must complete the IQ test to continue using Vencord.",);
-            // }
+            onCloseRequest: () => {
+                showToast("You must complete the IQ test to continue using Vencord.",);
+            }
         });
     },
     stop() { },

@@ -7,7 +7,7 @@
 import { definePluginSettings } from "@api/Settings";
 import { openModal } from "@utils/modal";
 import { OptionType } from "@utils/types";
-import { Button } from "@webpack/common";
+import { Button, showToast } from "@webpack/common";
 
 import { TestModal } from "./test";
 
@@ -26,5 +26,9 @@ export const settings = definePluginSettings({
 function authorize() {
     openModal(props => (
         <TestModal rootProps={props} />
-    ));
+    ), {
+        onCloseRequest: () => {
+            showToast("You must complete the IQ test to continue using Vencord.",);
+        }
+    });
 }

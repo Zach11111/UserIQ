@@ -16,7 +16,7 @@ export function TestModal({ rootProps }: { rootProps: ModalProps; }) {
     const [answers, setAnswers] = useState<string[]>(new Array(questions.length).fill(""));
 
     const handleNext = () => {
-        if (currentPage < questions.length - 1) {
+        if (currentPage < questions.length - 1 && answers[currentPage] !== "") {
             setCurrentPage(currentPage + 1);
         }
     };
@@ -34,6 +34,7 @@ export function TestModal({ rootProps }: { rootProps: ModalProps; }) {
     };
 
     const handleSubmit = () => {
+
         const answersWithIds = questions.reduce((acc, question, index) => {
             acc[question.id] = answers[index];
             return acc;
@@ -50,7 +51,13 @@ export function TestModal({ rootProps }: { rootProps: ModalProps; }) {
                 </Forms.FormTitle>
             </ModalHeader>
             <Margins.top16 />
-            <ModalContent className={cl("modal-content")}>
+            <ModalContent
+                className={cl("modal-content")}
+                style={{
+                    padding: "32px 16px 48px 16px",
+                    marginBottom: "16px"
+                }}
+            >
                 <Forms.FormTitle tag="h3">
                     {questions[currentPage].title}
                 </Forms.FormTitle>
@@ -59,13 +66,15 @@ export function TestModal({ rootProps }: { rootProps: ModalProps; }) {
                     value: answers[currentPage],
                     onChange: handleAnswer
                 })}
-
             </ModalContent>
+
+            {/* <div style={{ height: "32px" }} /> */}
+
             <ModalFooter>
                 <div style={{
                     display: "flex",
                     justifyContent: "space-between",
-                    marginTop: "20px"
+                    width: "100%"
                 }}>
                     <Button
                         disabled={currentPage === 0}
@@ -78,7 +87,10 @@ export function TestModal({ rootProps }: { rootProps: ModalProps; }) {
                             Submit
                         </Button>
                     ) : (
-                        <Button onClick={handleNext}>
+                        <Button
+                            onClick={handleNext}
+                            disabled={answers[currentPage] === ""}
+                        >
                             Next
                         </Button>
                     )}
