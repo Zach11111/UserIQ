@@ -4,7 +4,6 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-import { Margins } from "@utils/margins";
 import { ModalContent, ModalFooter, ModalHeader, ModalProps, ModalRoot } from "@utils/modal";
 import { Button, Forms, useState } from "@webpack/common";
 
@@ -50,7 +49,7 @@ export function TestModal({ rootProps }: { rootProps: ModalProps; }) {
                     IQ Test
                 </Forms.FormTitle>
             </ModalHeader>
-            <Margins.top16 />
+            <div style={{ height: "32px" }} />
             <ModalContent
                 className={cl("modal-content")}
                 style={{
@@ -68,7 +67,7 @@ export function TestModal({ rootProps }: { rootProps: ModalProps; }) {
                 })}
             </ModalContent>
 
-            {/* <div style={{ height: "32px" }} /> */}
+            <div style={{ height: "32px" }} />
 
             <ModalFooter>
                 <div style={{
