@@ -8,14 +8,15 @@ import { ModalContent, ModalFooter, ModalHeader, ModalProps, ModalRoot } from "@
 import { Button, Forms, useState } from "@webpack/common";
 
 import { questions } from "./questions";
-import { cl } from "./utils";
+import { cl, shuffleArray } from "./utils";
+const shuffledQuestions = shuffleArray(questions);
 
 export function TestModal({ rootProps }: { rootProps: ModalProps; }) {
     const [currentPage, setCurrentPage] = useState(0);
-    const [answers, setAnswers] = useState<string[]>(new Array(questions.length).fill(""));
+    const [answers, setAnswers] = useState<string[]>(new Array(shuffledQuestions.length).fill(""));
 
     const handleNext = () => {
-        if (currentPage < questions.length - 1 && answers[currentPage] !== "") {
+        if (currentPage < shuffledQuestions.length - 1 && answers[currentPage] !== "") {
             setCurrentPage(currentPage + 1);
         }
     };
@@ -34,7 +35,7 @@ export function TestModal({ rootProps }: { rootProps: ModalProps; }) {
 
     const handleSubmit = () => {
 
-        const answersWithIds = questions.reduce((acc, question, index) => {
+        const answersWithIds = shuffledQuestions.reduce((acc, question, index) => {
             acc[question.id] = answers[index];
             return acc;
         }, {} as Record<string, string>);
@@ -58,10 +59,10 @@ export function TestModal({ rootProps }: { rootProps: ModalProps; }) {
                 }}
             >
                 <Forms.FormTitle tag="h3">
-                    {questions[currentPage].title}
+                    {shuffledQuestions[currentPage].title}
                 </Forms.FormTitle>
 
-                {questions[currentPage].component({
+                {shuffledQuestions[currentPage].component({
                     value: answers[currentPage],
                     onChange: handleAnswer
                 })}
@@ -81,7 +82,7 @@ export function TestModal({ rootProps }: { rootProps: ModalProps; }) {
                     >
                         Previous
                     </Button>
-                    {currentPage === questions.length - 1 ? (
+                    {currentPage === shuffledQuestions.length - 1 ? (
                         <Button
                             onClick={handleSubmit}
                             disabled={answers.some(answer => answer === "")}
