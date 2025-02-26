@@ -4,8 +4,9 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+import { findComponentByCodeLazy } from "@webpack";
 import { Button, SearchableSelect, Slider, TextInput } from "@webpack/common";
-
+const Checkbox = findComponentByCodeLazy(".checkboxWrapperDisabled:");
 export interface Question {
     id: string;
     title: string;
@@ -77,17 +78,50 @@ export const questions: Question[] = [
         )
     },
     {
-        id: "test3",
-        title: "testing",
-        component: ({ value, onChange }) => (
-            <Slider
-                markers={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]}
-                minValue={0}
-                maxValue={12}
-                stickToMarkers={true}
-                initialValue={parseInt(value) || 0}
-                onValueChange={v => onChange(v.toString())}
-            />
-        )
+        id: "discordBingo",
+        title: "Terminally Online Bingo (Check all that apply)",
+        component: ({ value, onChange }) => {
+            const items = [
+                "I've had a sleep schedule ruined by Discord",
+                "I've been in a voice call for more than 8 hours straight",
+                "I've argued with a stranger over something dumb",
+                "I have custom emojis that only I understand",
+                "I feel phantom Discord pings even when I'm not online"
+            ];
+
+            const checked = value && value.trim() !== "" ? value.split(",").map(Number) : [];
+
+            const toggleItem = (index: number) => {
+                const newChecked = checked.includes(index)
+                    ? checked.filter(i => i !== index)
+                    : [...checked, index];
+                onChange(newChecked.join(","));
+            };
+
+            return (
+                <div style={{ display: "flex", flexDirection: "column", gap: "8px", color: "white" }}>
+                    {items.map((item, index) => (
+                        <label key={index} style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer" }}>
+                            <Checkbox
+                                checked={checked.includes(index)}
+                                onChange={() => toggleItem(index)}
+                                style={{ width: 24, height: 24 }}
+                            >
+                                {item}
+                            </Checkbox>
+                        </label>
+                    ))}
+
+                    <Checkbox
+                        checked={true}
+                        onChange={() => { }}
+                        style={{ width: 24, height: 24 }}
+                    >
+                        Test
+                    </Checkbox>
+                </div>
+            );
+        }
     }
 ];
+

@@ -9,7 +9,8 @@ import { Button, Forms, useState } from "@webpack/common";
 
 import { questions } from "./questions";
 import { cl, shuffleArray } from "./utils";
-const shuffledQuestions = shuffleArray(questions);
+
+const shuffledQuestions: any = shuffleArray(questions);
 
 export function TestModal({ rootProps }: { rootProps: ModalProps; }) {
     const [currentPage, setCurrentPage] = useState(0);
