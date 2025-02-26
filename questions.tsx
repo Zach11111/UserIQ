@@ -75,5 +75,19 @@ export const questions: Question[] = [
                 Click me
             </Button>
         )
+    },
+    {
+        id: "test3",
+        title: "testing",
+        component: ({ value, onChange }) => (
+            <Slider
+                markers={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]}
+                minValue={0}
+                maxValue={12}
+                stickToMarkers={true}
+                initialValue={parseInt(value) || 0}
+                onValueChange={v => onChange(v.toString())}
+            />
+        )
     }
 ];
