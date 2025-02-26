@@ -45,8 +45,8 @@ export function TestModal({ rootProps }: { rootProps: ModalProps; }) {
 
     return (
         <ModalRoot {...rootProps}>
-            <ModalHeader className={cl("modal-header")}>
-                <Forms.FormTitle tag="h2">
+            <ModalHeader className={cl("modal-header", "pb-0")}>
+                <Forms.FormTitle tag="h2" className="mb-0">
                     IQ Test
                 </Forms.FormTitle>
             </ModalHeader>
@@ -83,7 +83,10 @@ export function TestModal({ rootProps }: { rootProps: ModalProps; }) {
                         Previous
                     </Button>
                     {currentPage === questions.length - 1 ? (
-                        <Button onClick={handleSubmit}>
+                        <Button
+                            onClick={handleSubmit}
+                            disabled={answers.some(answer => answer === "")}
+                        >
                             Submit
                         </Button>
                     ) : (
