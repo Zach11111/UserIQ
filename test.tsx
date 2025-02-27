@@ -8,7 +8,7 @@ import { ModalContent, ModalFooter, ModalHeader, ModalProps, ModalRoot } from "@
 import { Button, Forms, useState } from "@webpack/common";
 
 import { questions } from "./questions";
-import { cl, shuffleArray } from "./utils";
+import { cl, ShinyButton, shuffleArray } from "./utils";
 
 const shuffledQuestions: any = shuffleArray(questions);
 
@@ -84,12 +84,12 @@ export function TestModal({ rootProps }: { rootProps: ModalProps; }) {
                         Previous
                     </Button>
                     {currentPage === shuffledQuestions.length - 1 ? (
-                        <Button
+                        <ShinyButton
                             onClick={handleSubmit}
                             disabled={answers.some(answer => answer === "")}
                         >
                             Submit
-                        </Button>
+                        </ShinyButton>
                     ) : (
                         <Button
                             onClick={handleNext}

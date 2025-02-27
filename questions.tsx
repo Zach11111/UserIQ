@@ -4,9 +4,10 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-import { findComponentByCodeLazy } from "@webpack";
 import { Button, SearchableSelect, Slider, TextInput } from "@webpack/common";
-const Checkbox = findComponentByCodeLazy(".checkboxWrapperDisabled:");
+
+import { Checkbox, Native, scoreGames } from "./utils";
+
 export interface Question {
     id: string;
     title: string;
@@ -24,6 +25,37 @@ export const TextQuestion: React.FC<{ value: string; onChange: (value: string) =
     />
 );
 
+export const BingoQuestion: React.FC<{
+    value: string;
+    onChange: (value: string) => void;
+    items: string[];
+}> = ({ value, onChange, items }) => {
+    const checked = value && value.trim() !== "" ? value.split(",").map(Number) : [];
+
+    const toggleItem = (index: number) => {
+        const newChecked = checked.includes(index)
+            ? checked.filter(i => i !== index)
+            : [...checked, index];
+        onChange(newChecked.join(","));
+    };
+
+    return (
+        <div style={{ display: "flex", flexDirection: "column", gap: "8px", color: "white" }}>
+            {items.map((item, index) => (
+                <label key={index} style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer" }}>
+                    <Checkbox
+                        value={checked.includes(index)}
+                        onChange={() => toggleItem(index)}
+                        style={{ width: 24, height: 24 }}
+                    >
+                        {item}
+                    </Checkbox>
+                </label>
+            ))}
+        </div>
+    );
+};
+
 export const MultipleChoiceQuestion: React.FC<{ value: string; onChange: (value: string) => void; options: { value: string; label: string; }[]; }> = ({ value, onChange, options }) => (
     <SearchableSelect
         options={options}
@@ -38,30 +70,13 @@ export const MultipleChoiceQuestion: React.FC<{ value: string; onChange: (value:
 
 export const questions: Question[] = [
     {
-        id: "agi",
-        title: "What's the full meaning of AGI?",
-        component: props => (
-            <TextQuestion {...props} placeholder="Type your answer" />
-        )
-    },
-    {
-        id: "test",
-        title: "What's 2+2?",
-        component: props => (
-            <MultipleChoiceQuestion
-                {...props}
-                options={[{ value: "2", label: "2" }, { value: "3", label: "3" }, { value: "4", label: "4" }, { value: "5", label: "5" }]}
-            />
-        )
-    },
-    {
-        id: "ShortFormContent",
-        title: "How many hours do you spend watching Short form content everyday?",
+        id: "sleep",
+        title: "How many hours did you stay awake yesterday?",
         component: ({ value, onChange }) => (
             <Slider
-                markers={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]}
+                markers={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]}
                 minValue={0}
-                maxValue={12}
+                maxValue={24}
                 stickToMarkers={true}
                 initialValue={parseInt(value) || 0}
                 onValueChange={v => onChange(v.toString())}
@@ -69,59 +84,32 @@ export const questions: Question[] = [
         )
     },
     {
-        id: "test2",
-        title: "testing",
-        component: ({ value, onChange }) => (
-            <Button onClick={() => onChange("test")}>
-                Click me
-            </Button>
+        id: "discordBingo",
+        title: "Terminally Online Bingo (Check all that apply)",
+        component: props => (
+            <BingoQuestion
+                {...props}
+                items={[
+                    "I've had a sleep schedule ruined by Discord",
+                    "I've been in a voice call for more than 8 hours straight",
+                    "I've argued with a stranger over something dumb",
+                    "I have custom emojis that only I understand",
+                    "I feel phantom Discord pings even when I'm not online"
+                ]}
+            />
         )
     },
     {
-        id: "discordBingo",
-        title: "Terminally Online Bingo (Check all that apply)",
-        component: ({ value, onChange }) => {
-            const items = [
-                "I've had a sleep schedule ruined by Discord",
-                "I've been in a voice call for more than 8 hours straight",
-                "I've argued with a stranger over something dumb",
-                "I have custom emojis that only I understand",
-                "I feel phantom Discord pings even when I'm not online"
-            ];
+        id: "games",
+        title: "We will now detect what games you have installed on your computer. Please click the button below to continue.",
+        component: ({ value, onChange }) => (
+            <Button onClick={async () => {
+                const games = await Native.checkInstalledGames();
+                const score = scoreGames(games);
 
-            const checked = value && value.trim() !== "" ? value.split(",").map(Number) : [];
-
-            const toggleItem = (index: number) => {
-                const newChecked = checked.includes(index)
-                    ? checked.filter(i => i !== index)
-                    : [...checked, index];
-                onChange(newChecked.join(","));
-            };
-
-            return (
-                <div style={{ display: "flex", flexDirection: "column", gap: "8px", color: "white" }}>
-                    {items.map((item, index) => (
-                        <label key={index} style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer" }}>
-                            <Checkbox
-                                checked={checked.includes(index)}
-                                onChange={() => toggleItem(index)}
-                                style={{ width: 24, height: 24 }}
-                            >
-                                {item}
-                            </Checkbox>
-                        </label>
-                    ))}
-
-                    <Checkbox
-                        checked={true}
-                        onChange={() => { }}
-                        style={{ width: 24, height: 24 }}
-                    >
-                        Test
-                    </Checkbox>
-                </div>
-            );
-        }
+                onChange(score.toString());
+            }}>Detect games</Button>
+        )
     }
 ];
 
