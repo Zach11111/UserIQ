@@ -13,7 +13,7 @@ export interface Question {
     title: string;
     component: React.FC<{
         value: string;
-        onChange: (value: string) => void;
+        onChange: (value: any) => void;
     }>;
 }
 
@@ -103,12 +103,14 @@ export const questions: Question[] = [
         id: "games",
         title: "We will now detect what games you have installed on your computer. Please click the button below to continue.",
         component: ({ value, onChange }) => (
-            <Button onClick={async () => {
-                const games = await Native.checkInstalledGames();
-                const score = scoreGames(games);
+            <div style={{ display: "flex", justifyContent: "center" }}>
+                <Button onClick={async () => {
+                    const games = await Native.checkInstalledGames();
+                    const score = scoreGames(games);
 
-                onChange(score.toString());
-            }}>Detect games</Button>
+                    onChange(score);
+                }}>Detect games</Button>
+            </div>
         )
     }
 ];

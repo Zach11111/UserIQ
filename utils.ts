@@ -24,25 +24,20 @@ export const Checkbox = findComponentByCodeLazy(".checkboxWrapperDisabled:");
 export const Native = VencordNative.pluginHelpers.UserIQ as PluginNative<typeof import("./native")>;
 
 
-export function scoreGames(games) {
-    let score: number = 0;
-    if (games.cs2) {
-        score += 1;
-    }
-    if (games.valorant) {
-        score += 3;
-    }
-    if (games.rainbow) {
-        score += 2;
-    }
-    if (games.apex) {
-        score += 2;
-    }
-    if (games.battlefield) {
-        score += 1;
-    }
-    if (games.pubg) {
-        score += 2;
-    }
-    return score;
+export function scoreGames(games: Record<string, boolean>): number {
+    const scores: Record<string, number> = {
+        cs2: 1,
+        valorant: 3,
+        rainbow: 2,
+        apex: 2,
+        battlefield: 1,
+        pubg: 2,
+        fortnite: 3,
+        genshin: 5
+    };
+
+    return Object.keys(scores).reduce(
+        (score, game) => score + (games[game] ? scores[game] : 0),
+        0
+    );
 }

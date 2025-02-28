@@ -39,7 +39,17 @@ const gamePaths: Record<string, Record<string, string | null>> = {
         windows: "C:\\Program Files (x86)\\Steam\\steamapps\\common\\PUBG",
         macos: null,
         linux: "~/.steam/steam/steamapps/common/PUBG"
-    }
+    },
+    "fortnite": {
+        windows: "C:\\Program Files\\Epic Games\\Fortnite",
+        macos: null,
+        linux: null
+    },
+    "genshin": {
+        windows: "C:\\Program Files\\Genshin Impact",
+        macos: null,
+        linux: null
+    },
 };
 
 
