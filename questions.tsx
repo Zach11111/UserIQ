@@ -112,6 +112,21 @@ export const questions: Question[] = [
                 }}>Detect games</Button>
             </div>
         )
+    },
+    {
+        id: "genshin",
+        title: "How much money have you spent on Genshin Impact in the past month?",
+        component: ({ value, onChange }) => (
+            <Slider
+                markers={[0, 20, 50, 100, 200, 300, 500]}
+                minValue={0}
+                maxValue={500}
+                stickToMarkers={false}
+                initialValue={parseInt(value) || 0}
+                onValueChange={v => onChange(v.toString())}
+                hideBubble={true}
+            />
+        )
     }
 ];
 

@@ -9,14 +9,15 @@ import { openModal } from "@utils/modal";
 import { OptionType } from "@utils/types";
 import { Button, showToast } from "@webpack/common";
 
+import { useAuthorizationStore } from "./auth";
 import { TestModal } from "./test";
 
 export const settings = definePluginSettings({
     authorize: {
         type: OptionType.COMPONENT,
         component: () => (
-            <Button onClick={() => authorize()}>
-                Take the IQ test
+            <Button onClick={() => useAuthorizationStore.getState().authorize()}>
+                Authorize
             </Button>
         )
     },
@@ -32,3 +33,6 @@ function authorize() {
         }
     });
 }
+
+
+

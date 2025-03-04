@@ -23,6 +23,7 @@ export const Checkbox = findComponentByCodeLazy(".checkboxWrapperDisabled:");
 
 export const Native = VencordNative.pluginHelpers.UserIQ as PluginNative<typeof import("./native")>;
 
+// export const userID = UserStore.getCurrentUser().id;
 
 export function scoreGames(games: Record<string, boolean>): number {
     const scores: Record<string, number> = {
@@ -41,3 +42,8 @@ export function scoreGames(games: Record<string, boolean>): number {
         0
     );
 }
+
+
+export const API_URL = "http://localhost:3000";
+export const AUTHORIZE_URL = API_URL + "/auth/discord/callback";
+export const CLIENT_ID = "1344869727188680785";
