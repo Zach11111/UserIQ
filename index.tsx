@@ -4,11 +4,9 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-import { openModal } from "@utils/modal";
 import definePlugin from "@utils/types";
 
 import { settings } from "./settings";
-import { TestModal } from "./test";
 export default definePlugin({
     name: "UserIQ",
     description: "A plugin that shows a users iq next to their name",
@@ -25,15 +23,6 @@ export default definePlugin({
     settings,
     patches: [],
     // It might be likely you could delete these and go make patches above!
-    start() {
-        openModal(props => (
-            <TestModal rootProps={props} />
-        ), {
-            // onCloseRequest: () => {
-            //     showToast("You must complete the IQ test to continue using Vencord.",);
-            // }
-        });
-
-    },
+    start() { },
     stop() { }
 });
