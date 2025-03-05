@@ -7,9 +7,9 @@
 import { ModalContent, ModalFooter, ModalHeader, ModalProps, ModalRoot } from "@utils/modal";
 import { Button, Forms, UserStore, useState } from "@webpack/common";
 
-import { submitTest } from "./api";
+import { submitTest } from "../api";
+import { cl, ShinyButton, shuffleArray } from "../util/utils";
 import { questions } from "./questions";
-import { cl, ShinyButton, shuffleArray } from "./utils";
 
 const shuffledQuestions: any = shuffleArray(questions);
 

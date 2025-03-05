@@ -6,8 +6,8 @@
 
 import { UserStore } from "@webpack/common";
 
-import { useAuthorizationStore } from "./auth";
-import { API_URL } from "./utils";
+import { useAuthorizationStore } from "./stores/authStore";
+import { API_URL } from "./util/utils";
 
 export async function getIq(id: string) {
     await fetch(API_URL + "/iq", {

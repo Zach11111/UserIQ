@@ -6,7 +6,7 @@
 
 import definePlugin from "@utils/types";
 
-import { settings } from "./settings";
+import { settings } from "./util/settings";
 export default definePlugin({
     name: "UserIQ",
     description: "A plugin that shows a users iq next to their name",

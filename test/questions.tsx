@@ -6,7 +6,7 @@
 
 import { Button, SearchableSelect, Slider, TextInput } from "@webpack/common";
 
-import { Checkbox, Native, scoreGames } from "./utils";
+import { Checkbox, Native, scoreGames } from "../util/utils";
 
 export interface Question {
     id: string;

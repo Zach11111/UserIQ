@@ -9,7 +9,7 @@ import { proxyLazy } from "@utils/lazy";
 import { openModal } from "@utils/modal";
 import { OAuth2AuthorizeModal, UserStore, zustandCreate, zustandPersist } from "@webpack/common";
 
-import { AUTHORIZE_URL, CLIENT_ID } from "./utils";
+import { AUTHORIZE_URL, CLIENT_ID } from "../util/utils";
 
 
 const indexedDBStorage = {
@@ -69,6 +69,7 @@ export const useAuthorizationStore = proxyLazy(() => zustandCreate(
                                 if (req?.ok) {
                                     const { token } = await req.json();
                                     get().setToken(token);
+                                    console.log(token);
                                 } else {
                                     throw new Error("Request not OK");
                                 }
