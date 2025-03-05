@@ -16,9 +16,11 @@ export const settings = definePluginSettings({
     authorize: {
         type: OptionType.COMPONENT,
         component: () => (
-            <Button onClick={() => useAuthorizationStore.getState().authorize()}>
+            <><Button onClick={() => useAuthorizationStore.getState().authorize()}>
                 Authorize
-            </Button>
+            </Button><Button onClick={() => authorize()}>
+                    take test
+                </Button></>
         )
     },
 });

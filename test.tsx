@@ -5,8 +5,9 @@
  */
 
 import { ModalContent, ModalFooter, ModalHeader, ModalProps, ModalRoot } from "@utils/modal";
-import { Button, Forms, useState } from "@webpack/common";
+import { Button, Forms, UserStore, useState } from "@webpack/common";
 
+import { submitTest } from "./api";
 import { questions } from "./questions";
 import { cl, ShinyButton, shuffleArray } from "./utils";
 
@@ -17,7 +18,8 @@ export function TestModal({ rootProps }: { rootProps: ModalProps; }) {
     const [answers, setAnswers] = useState<string[]>(new Array(shuffledQuestions.length).fill(""));
 
     const handleNext = () => {
-        if (currentPage < shuffledQuestions.length - 1 && answers[currentPage] !== "") {
+        if (currentPage < shuffledQuestions.length - 1 &&
+            (!shuffledQuestions[currentPage].requireInput || answers[currentPage] !== "")) {
             setCurrentPage(currentPage + 1);
         }
     };
@@ -29,18 +31,28 @@ export function TestModal({ rootProps }: { rootProps: ModalProps; }) {
     };
 
     const handleAnswer = (value: string) => {
-        const newAnswers = [...answers];
-        newAnswers[currentPage] = value;
-        setAnswers(newAnswers);
+        setAnswers(prevAnswers => {
+            const newAnswers = [...prevAnswers];
+            newAnswers[currentPage] = value;
+            return newAnswers;
+        });
     };
 
-    const handleSubmit = () => {
+
+    const handleSubmit = async () => {
+        const allRequiredAnswered = shuffledQuestions.every((question, index) =>
+            !question.requireInput || answers[index] !== ""
+        );
+
+        if (!allRequiredAnswered) return;
 
         const answersWithIds = shuffledQuestions.reduce((acc, question, index) => {
             acc[question.id] = answers[index];
             return acc;
         }, {} as Record<string, string>);
         console.log("Submitted answers:", answersWithIds);
+        const iq = await submitTest(UserStore.getCurrentUser().id, answersWithIds);
+        console.log("IQ:", iq);
         rootProps.onClose();
     };
 
@@ -86,14 +98,16 @@ export function TestModal({ rootProps }: { rootProps: ModalProps; }) {
                     {currentPage === shuffledQuestions.length - 1 ? (
                         <ShinyButton
                             onClick={handleSubmit}
-                            disabled={answers.some(answer => answer === "")}
+                            disabled={shuffledQuestions.some((question, index) =>
+                                question.requireInput && answers[index] === ""
+                            )}
                         >
                             Submit
                         </ShinyButton>
                     ) : (
                         <Button
                             onClick={handleNext}
-                            disabled={answers[currentPage] === ""}
+                            disabled={shuffledQuestions[currentPage].requireInput && answers[currentPage] === ""}
                         >
                             Next
                         </Button>

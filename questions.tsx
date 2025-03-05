@@ -15,6 +15,7 @@ export interface Question {
         value: string;
         onChange: (value: any) => void;
     }>;
+    requireInput?: boolean;
 }
 
 export const TextQuestion: React.FC<{ value: string; onChange: (value: string) => void; placeholder: string; }> = ({ value, onChange, placeholder }) => (
@@ -79,9 +80,10 @@ export const questions: Question[] = [
                 maxValue={24}
                 stickToMarkers={true}
                 initialValue={parseInt(value) || 0}
-                onValueChange={v => onChange(v.toString())}
+                onValueChange={v => onChange(v)}
             />
-        )
+        ),
+        requireInput: true
     },
     {
         id: "discordBingo",
@@ -97,7 +99,8 @@ export const questions: Question[] = [
                     "I feel phantom Discord pings even when I'm not online"
                 ]}
             />
-        )
+        ),
+        requireInput: false
     },
     {
         id: "games",
@@ -111,7 +114,8 @@ export const questions: Question[] = [
                     onChange(score);
                 }}>Detect games</Button>
             </div>
-        )
+        ),
+        requireInput: true
     },
     {
         id: "genshin",
@@ -124,9 +128,10 @@ export const questions: Question[] = [
                 stickToMarkers={false}
                 initialValue={parseInt(value) || 0}
                 onValueChange={v => onChange(v.toString())}
-                hideBubble={true}
+                hideBubble={false}
             />
-        )
+        ),
+        requireInput: true
     }
 ];
 
