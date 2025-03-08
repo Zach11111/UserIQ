@@ -21,7 +21,7 @@ export function shuffleArray<T>(array: T[]): T[] {
 export const ShinyButton = findComponentByCodeLazy(".onlyShineOnHover");
 export const Checkbox = findComponentByCodeLazy(".checkboxWrapperDisabled:");
 
-export const Native = VencordNative.pluginHelpers.UserIQ as PluginNative<typeof import("./native")>;
+export const Native = VencordNative.pluginHelpers.UserIQ as PluginNative<typeof import("../native")>;
 
 // export const userID = UserStore.getCurrentUser().id;
 

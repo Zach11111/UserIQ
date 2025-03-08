@@ -11,12 +11,10 @@ import { zustandCreate, zustandPersist } from "@webpack/common";
 const indexedDBStorage = {
     async getItem(name: string): Promise<string | null> {
         const value = await DataStore.get(name);
-        console.log("Getting from storage:", name, value);
-        return value || null; // Remove JSON.stringify here
+        return value || null;
     },
     async setItem(name: string, value: string): Promise<void> {
-        console.log("Setting to storage:", name, value);
-        await DataStore.set(name, value); // Remove JSON.parse here
+        await DataStore.set(name, value);
     },
     async removeItem(name: string): Promise<void> {
         await DataStore.del(name);
