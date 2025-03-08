@@ -7,7 +7,7 @@
 import { Button, Slider } from "@webpack/common";
 
 import { Native, scoreGames } from "../util/utils";
-import { BingoQuestion, Question } from "./questionTypes";
+import { BingoQuestion, Question, SingleChoiceQuestion } from "./questionTypes";
 
 export const questions: Question[] = [
     {
@@ -72,6 +72,18 @@ export const questions: Question[] = [
             />
         ),
         requireInput: true
+    },
+    {
+        id: "vanity",
+        title: "Do you own any servers with vanity URLs?",
+        component: ({ value, onChange }) => (
+            <SingleChoiceQuestion
+                value={value}
+                onChange={onChange}
+                items={["Yes", "No"]}
+            />
+        )
     }
+
 ];
 

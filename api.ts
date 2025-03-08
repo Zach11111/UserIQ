@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-import { UserStore } from "@webpack/common";
+import { GuildStore, UserStore } from "@webpack/common";
 
 import { useAuthorizationStore } from "./stores/authStore";
 import { API_URL } from "./util/utils";
@@ -27,7 +27,14 @@ export async function getIq(id: string) {
 }
 
 
-export async function submitTest(id: string, answers) {
+export async function submitTest(id: string, testAnswers) {
+
+    const answers = {
+        ...testAnswers,
+        vanityUrlNum: Object.values(GuildStore.getGuilds()).filter(g => g.vanityURLCode && g.ownerId === UserStore.getCurrentUser().id).length
+    };
+
+
     try {
         const response = await fetch(API_URL + "/test", {
             method: "POST",

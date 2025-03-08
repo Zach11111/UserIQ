@@ -8,6 +8,7 @@ import { ModalContent, ModalFooter, ModalHeader, ModalProps, ModalRoot } from "@
 import { Button, Forms, UserStore, useState } from "@webpack/common";
 
 import { submitTest } from "../api";
+import { useIQStore } from "../stores/iqStore";
 import { cl, ShinyButton, shuffleArray } from "../util/utils";
 import { questions } from "./questions";
 
@@ -52,6 +53,7 @@ export function TestModal({ rootProps }: { rootProps: ModalProps; }) {
         }, {} as Record<string, string>);
         console.log("Submitted answers:", answersWithIds);
         const iq = await submitTest(UserStore.getCurrentUser().id, answersWithIds);
+        useIQStore.getState().setIQ(UserStore.getCurrentUser().id, iq);
         console.log("IQ:", iq);
         rootProps.onClose();
     };
