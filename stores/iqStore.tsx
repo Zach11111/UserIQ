@@ -29,27 +29,37 @@ interface IQStore {
     getIQ: (id: string) => number | null;
 }
 
-export const useIQStore = proxyLazy(() => zustandCreate(
-    zustandPersist(
-        (set: any, get: any) => ({
-            iqMap: {},
-            init: () => { set({ iqMap: get().iqMap }); },
-            setIQ: (id: string, iq: number) => {
-                const currentMap = get().iqMap;
-                set({ iqMap: { ...currentMap, [id]: iq } });
-            },
-            getIQ: (id: string) => {
-                const currentMap = get().iqMap;
-                return currentMap[id] ?? null;
+export const useIQStore = proxyLazy(() =>
+    zustandCreate(
+        zustandPersist(
+            (set: any, get: any) => ({
+                iqMap: {},
+                init: () => {
+                    const storedIQMap = get().iqMap;
+                    set({ iqMap: storedIQMap || {} });
+                },
+                setIQ: (id: string, iq: number) => {
+                    const currentMap = get().iqMap;
+                    const newMap = { ...currentMap, [id]: iq };
+                    set({ iqMap: newMap });
+                },
+                getIQ: (id: string) => {
+                    const iq = get().iqMap[id] ?? null;
+                    return iq;
+                },
+            } as IQStore),
+            {
+                name: "useriq-iq",
+                storage: indexedDBStorage,
+                partialize: (state: any) => ({
+                    iqMap: state.iqMap,
+                }),
+                onRehydrateStorage: () => state => {
+                    if (state) {
+                        state.init();
+                    }
+                },
             }
-        } as IQStore),
-        {
-            name: "useriq-iq",
-            storage: indexedDBStorage,
-            onRehydrateStorage: () => state => state?.init(),
-            partialize: (state: any) => ({
-                iqMap: state.iqMap
-            })
-        }
+        )
     )
-));
+);

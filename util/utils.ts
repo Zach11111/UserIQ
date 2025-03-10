@@ -56,7 +56,6 @@ export const CLIENT_ID = "1344869727188680785";
 
 export async function getUserIq(userId) {
     const storeIQ = useIQStore.getState().getIQ(userId);
-
     if (storeIQ) {
         return storeIQ;
     } else {

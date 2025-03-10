@@ -17,9 +17,9 @@ export const UserIQDecorator = ErrorBoundary.wrap(({ userId }) => {
 
         const fetchIq = async () => {
             try {
-                const generatedIq = await getUserIq(userId);
+                const iq = await getUserIq(userId);
                 if (isSubscribed) {
-                    setIq(generatedIq);
+                    setIq(iq);
                 }
             } catch (error) {
                 console.error("Failed to fetch IQ:", error);

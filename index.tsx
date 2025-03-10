@@ -10,6 +10,7 @@ import { addMemberListDecorator, removeMemberListDecorator } from "@api/MemberLi
 import { addMessageDecoration, removeMessageDecoration } from "@api/MessageDecorations";
 import definePlugin from "@utils/types";
 
+import { useIQStore } from "./stores/iqStore";
 import { UserIQDecorator } from "./util/iqDecorator";
 import { settings } from "./util/settings";
 export default definePlugin({
@@ -31,6 +32,7 @@ export default definePlugin({
     // It might be likely you could delete these and go make patches above!
     start() {
         console.log("UserIQ started");
+        useIQStore.getState().init();
         addMessageDecoration("useriq", ({ message }) => <UserIQDecorator userId={message.author.id} />);
         addMemberListDecorator("useriq", ({ user }) => <UserIQDecorator userId={user.id} />);
     },
