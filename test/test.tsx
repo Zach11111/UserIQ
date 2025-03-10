@@ -60,8 +60,8 @@ export function TestModal({ rootProps }: { rootProps: ModalProps; }) {
 
     return (
         <ModalRoot {...rootProps}>
-            <ModalHeader className={cl("modal-header", "pb-0")}>
-                <Forms.FormTitle tag="h2" className="mb-0">
+            <ModalHeader className={cl("modal-header")}>
+                <Forms.FormTitle tag="h2" className="test-modal-title">
                     IQ Test
                 </Forms.FormTitle>
             </ModalHeader>

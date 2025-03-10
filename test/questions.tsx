@@ -76,13 +76,70 @@ export const questions: Question[] = [
     {
         id: "vanity",
         title: "Do you own any servers with vanity URLs?",
-        component: ({ value, onChange }) => (
+        component: props => (
             <SingleChoiceQuestion
-                value={value}
-                onChange={onChange}
+                {...props}
                 items={["Yes", "No"]}
             />
-        )
+        ),
+        requireInput: true
+    },
+    {
+        id: "tipsvideos",
+        title: "Have you watched YouTube videos about Discord tips and tricks?",
+        component: props => (
+            <SingleChoiceQuestion
+                {...props}
+                items={["Yes", "No"]}
+            />
+        ),
+        requireInput: true
+    },
+    {
+        id: "edater",
+        title: "Have you ever been in or witnessed a Discord relationship unfolding in real time?",
+        component: props => (
+            <BingoQuestion
+                {...props}
+                items={[
+                    "I've watched a Discord relationship start and end in the same server",
+                    "I've e-dated someone I met on Discord",
+                    "I've seen a public breakup in #general",
+                    "I've seen someone get banned because of e-dating drama",
+                ]}
+            />
+        ),
+        requireInput: false
+
+    },
+    {
+        id: "status",
+        title: "what is your most used Discord status?",
+        component: props => (
+            <SingleChoiceQuestion
+                {...props}
+                items={["Online", "Idle", "Do Not Disturb", "Invisible"]}
+            />
+        ),
+        requireInput: true
+
+    },
+    {
+        id: "renames",
+        title: "What is your Discord display name history like?",
+        component: props => (
+            <SingleChoiceQuestion
+                {...props}
+                items={
+                    [
+                        "I have never changed it",
+                        "I change it occasionally",
+                        "I change it every week",
+                        "I have a different display name for every server",
+                    ]
+                }
+            />
+        ),
     }
 
 ];

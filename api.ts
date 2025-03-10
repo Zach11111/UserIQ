@@ -10,22 +10,22 @@ import { useAuthorizationStore } from "./stores/authStore";
 import { API_URL } from "./util/utils";
 
 export async function getIq(id: string) {
-    await fetch(API_URL + "/iq", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "authorization": useAuthorizationStore.getState().token,
-            "userid": UserStore.getCurrentUser().id
-        },
-        body: JSON.stringify({
-            id
-        })
-    })
-        .then(response => response.json())
-        .then(data => { return data; })
-        .catch(error => console.error("Error:", error));
+    try {
+        const response = await fetch(API_URL + "/iq", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "authorization": useAuthorizationStore.getState().token,
+                "userid": id
+            },
+        });
+        const data = await response.json();
+        return data.iq;
+    } catch (error) {
+        console.error("Error:", error);
+        throw error;
+    }
 }
-
 
 export async function submitTest(id: string, testAnswers) {
 

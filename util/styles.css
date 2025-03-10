@@ -1,0 +1,23 @@
+.vc-useriq-iq-box {
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    vertical-align: top;
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    text-indent: 0;
+    background: var(--bg-brand);
+    border-radius: 4px;
+    gap: 2px;
+    padding: 2px 6px;
+    margin-left: 4px;
+}
+
+
+.vc-useriq-iq-text {
+    font-size: 0.8rem;
+    line-height: 0.9375rem;
+    font-weight: bold;
+    color: var(--white);
+    user-select: none;
+}

@@ -7,8 +7,13 @@
 import { classNameFactory } from "@api/Styles";
 import { PluginNative } from "@utils/types";
 import { findComponentByCodeLazy } from "@webpack";
+import { UserStore } from "@webpack/common";
 
-export const cl = classNameFactory("useriq");
+import { getIq } from "../api";
+import { useIQStore } from "../stores/iqStore";
+
+
+export const cl = classNameFactory("vc-useriq-");
 
 export function shuffleArray<T>(array: T[]): T[] {
     for (let i = array.length - 1; i > 0; i--) {
@@ -23,7 +28,6 @@ export const Checkbox = findComponentByCodeLazy(".checkboxWrapperDisabled:");
 
 export const Native = VencordNative.pluginHelpers.UserIQ as PluginNative<typeof import("../native")>;
 
-// export const userID = UserStore.getCurrentUser().id;
 
 export function scoreGames(games: Record<string, boolean>): number {
     const scores: Record<string, number> = {
@@ -47,3 +51,26 @@ export function scoreGames(games: Record<string, boolean>): number {
 export const API_URL = "http://localhost:3000";
 export const AUTHORIZE_URL = API_URL + "/auth/discord/callback";
 export const CLIENT_ID = "1344869727188680785";
+
+
+
+export async function getUserIq(userId) {
+    const storeIQ = useIQStore.getState().getIQ(userId);
+
+    if (storeIQ) {
+        return storeIQ;
+    } else {
+        const iq = await getIq(userId) ?? null;
+
+        if (iq) {
+            useIQStore.getState().setIQ(userId, iq);
+            return iq;
+        } else {
+            return null;
+        }
+    }
+}
+
+export function hasUserTakenTest() {
+    return useIQStore.getState().getIQ(UserStore.getCurrentUser().id) !== null;
+}
