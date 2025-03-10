@@ -10,7 +10,6 @@ import { OptionType } from "@utils/types";
 import { Button, showToast } from "@webpack/common";
 
 import { useAuthorizationStore } from "../stores/authStore";
-import { useIQStore } from "../stores/iqStore";
 import { TestModal } from "../test/test";
 import { hasUserTakenTest } from "./utils";
 
@@ -22,9 +21,6 @@ export const settings = definePluginSettings({
                 Authorize
             </Button><Button onClick={() => authorize()}>
                     take test
-                </Button>
-                <Button onClick={() => test()}>
-                    test
                 </Button></>
         )
     },
@@ -32,20 +28,24 @@ export const settings = definePluginSettings({
 
 
 function authorize() {
-    if (!hasUserTakenTest()) {
-        openModal(props => (
-            <TestModal rootProps={props} />
-        ), {
-            onCloseRequest: () => {
-                showToast("You must complete the IQ test to continue using Vencord.",);
-            }
-        });
+    if (hasUserTakenTest()) {
+        showToast("You have already taken the IQ test.");
+        return;
     }
+
+    if (!useAuthorizationStore.getState().isAuthorized) {
+        showToast("You must authorize to take the IQ test.");
+        return;
+    }
+
+    openModal(props => (
+        <TestModal rootProps={props} />
+    ), {
+        onCloseRequest: () => {
+            showToast("You must complete the IQ test to continue using Vencord.",);
+        }
+    });
+
 }
 
 
-
-function test() {
-
-    console.log(useIQStore.getState().getIQ("123"));
-}
