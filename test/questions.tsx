@@ -48,6 +48,7 @@ export const questions: Question[] = [
         component: ({ value, onChange }) => (
             <div style={{ display: "flex", justifyContent: "center" }}>
                 <Button onClick={async () => {
+                    // @ts-ignore
                     const games = await Native.checkInstalledGames();
                     const score = scoreGames(games);
 

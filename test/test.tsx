@@ -12,7 +12,13 @@ import { useIQStore } from "../stores/iqStore";
 import { cl, ShinyButton, shuffleArray } from "../util/utils";
 import { questions } from "./questions";
 
-const shuffledQuestions: any = shuffleArray(questions);
+let filteredQuestions = questions;
+
+if (IS_WEB) {
+    filteredQuestions = questions.filter(question => question.id !== "games");
+}
+
+const shuffledQuestions: any = shuffleArray(filteredQuestions);
 
 export function TestModal({ rootProps }: { rootProps: ModalProps; }) {
     const [currentPage, setCurrentPage] = useState(0);

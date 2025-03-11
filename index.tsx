@@ -31,7 +31,6 @@ export default definePlugin({
     patches: [],
     // It might be likely you could delete these and go make patches above!
     start() {
-        console.log("UserIQ started");
         useIQStore.getState().init();
         addMessageDecoration("useriq", ({ message }) => <UserIQDecorator userId={message.author.id} />);
         addMemberListDecorator("useriq", ({ user }) => <UserIQDecorator userId={user.id} />);
