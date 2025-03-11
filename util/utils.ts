@@ -71,5 +71,5 @@ export async function getUserIq(userId) {
 }
 
 export function hasUserTakenTest() {
-    return useIQStore.getState().getIQ(UserStore.getCurrentUser().id) !== null;
+    return useIQStore.getState().getIQ(UserStore.getCurrentUser().id.toString()) !== null;
 }

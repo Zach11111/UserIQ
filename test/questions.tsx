@@ -118,7 +118,12 @@ export const questions: Question[] = [
         component: props => (
             <SingleChoiceQuestion
                 {...props}
-                items={["Online", "Idle", "Do Not Disturb", "Invisible"]}
+                items={[
+                    "Online",
+                    "Idle",
+                    "Do Not Disturb",
+                    "Invisible"
+                ]}
             />
         ),
         requireInput: true
@@ -140,7 +145,37 @@ export const questions: Question[] = [
                 }
             />
         ),
-    }
+    },
+    {
+        id: "theme",
+        title: "What is your Discord theme?",
+        component: props => (
+            <SingleChoiceQuestion
+                {...props}
+                items={[
+                    "Default Dark",
+                    "Default Light",
+                    "Custom CSS",
+                    "I don’t know what a theme is",
+                ]}
+            />
+        ),
+        requireInput: true
+    },
+    {
+        id: "pings",
+        title: "How many unread pings do you have right now?",
+        component: ({ value, onChange }) => (
+            <Slider
+                markers={[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]}
+                minValue={0}
+                maxValue={100}
+                initialValue={parseInt(value) || 0}
+                onValueChange={v => onChange(v)}
+            />
+        ),
+        requireInput: true
+    },
 
 ];
 
