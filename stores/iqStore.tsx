@@ -27,6 +27,7 @@ interface IQStore {
     init: () => void;
     setIQ: (id: string, iq: number) => void;
     getIQ: (id: string) => number | null;
+    setAllIQs: (newIQMap: Record<string, number>) => void;
 }
 
 export const useIQStore = proxyLazy(() =>
@@ -47,6 +48,9 @@ export const useIQStore = proxyLazy(() =>
                     const iq = get().iqMap[id] ?? null;
                     return iq;
                 },
+                setAllIQs: (newIQMap: Record<string, number>) => {
+                    set({ iqMap: newIQMap });
+                }
             } as IQStore),
             {
                 name: "useriq-iq",

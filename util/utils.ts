@@ -9,8 +9,8 @@ import { PluginNative } from "@utils/types";
 import { findComponentByCodeLazy } from "@webpack";
 import { UserStore } from "@webpack/common";
 
-import { getIq } from "../api";
 import { useIQStore } from "../stores/iqStore";
+import { getAllIQs } from "./api";
 
 
 export const cl = classNameFactory("vc-useriq-");
@@ -58,17 +58,17 @@ export async function getUserIq(userId) {
     if (storeIQ) {
         return storeIQ;
     } else {
-        const iq = await getIq(userId) ?? null;
-
-        if (iq) {
-            useIQStore.getState().setIQ(userId, iq);
-            return iq;
-        } else {
-            return null;
-        }
+        return null;
     }
 }
 
 export function hasUserTakenTest() {
     return useIQStore.getState().getIQ(UserStore.getCurrentUser().id.toString()) !== null;
+}
+
+
+export async function UpdateAllIqs() {
+    const iqs = await getAllIQs();
+
+    useIQStore.getState().setAllIQs(iqs);
 }

@@ -7,3 +7,87 @@ how much money did you spend on Genshin Impact in the past month
 check if common shooter games are installed
 
 Do you own a server with a vanity URL Object.values(GuildStore.getGuilds()).some(g => g.vanityURLCode && g.ownerId === meId)
+
+
+Title: "Have you ever been in or witnessed a Discord relationship unfolding in real time?"
+Type: Bingo
+Options:
+
+    "I've watched a Discord relationship start and end in the same server"
+    "I've e-dated someone I met on Discord"
+    "I've seen a public breakup in #general"
+    "I've seen someone get banned because of e-dating drama"
+
+"What’s your Discord status most of the time?"
+
+    Component: Multiple-choice.
+
+    Options:
+
+        "Online"
+
+        "Idle"
+
+        "Do Not Disturb"
+
+        "Invisible (but actually online)"
+
+
+"How many unread messages do you currently have?"
+
+    Component: Slider or multiple-choice.
+
+    Options:
+
+        "0 (I’m a psychopath)"
+
+        "1-10"
+
+        "10-50"
+
+        "50+ (I’m drowning)"
+
+
+        6. "How many Discord bots have you created?"
+
+    Component: Slider or multiple-choice.
+
+    Options:
+
+        "0"
+
+        "1"
+
+        "2-5"
+
+        "5+"
+
+11. "What’s your Discord display name history like?"
+
+    Component: Multiple-choice.
+
+    Options:
+
+        "I’ve never changed it"
+
+        "I change it occasionally"
+
+        "I change it every week"
+
+        "I have a different username for every server"
+
+15. "What’s your Discord theme?"
+
+    Component: Multiple-choice.
+
+    Options:
+
+        "Default Dark"
+
+        "Default Light"
+
+        "Custom CSS"
+
+        "I don’t know what a theme is"
+
+"Have you watched YouTube videos about Discord tips and tricks?"

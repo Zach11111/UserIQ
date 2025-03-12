@@ -6,8 +6,8 @@
 
 import { GuildStore, UserStore } from "@webpack/common";
 
-import { useAuthorizationStore } from "./stores/authStore";
-import { API_URL } from "./util/utils";
+import { useAuthorizationStore } from "../stores/authStore";
+import { API_URL } from "./utils";
 
 export async function getIq(id: string) {
     try {
@@ -53,3 +53,13 @@ export async function submitTest(id: string, testAnswers) {
     }
 }
 
+export async function getAllIQs() {
+    const response = await fetch(API_URL + "/iqs", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+    const data = await response.json();
+    return data;
+}
