@@ -33,7 +33,7 @@ function authorize() {
         return;
     }
 
-    if (!useAuthorizationStore.getState().isAuthorized) {
+    if (!useAuthorizationStore.getState().isAuthorized()) {
         showToast("You must authorize to take the IQ test.");
         return;
     }

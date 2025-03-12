@@ -47,7 +47,7 @@ export function scoreGames(games: Record<string, boolean>): number {
 }
 
 
-export const API_URL = "http://localhost:3000";
+export const API_URL = "https://useriq.garythe.cat";
 export const AUTHORIZE_URL = API_URL + "/auth/discord/callback";
 export const CLIENT_ID = "1344869727188680785";
 
