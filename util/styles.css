@@ -21,3 +21,33 @@
     color: var(--white);
     user-select: none;
 }
+
+
+.vc-useriq-test-move-up, .vc-useriq-test-move-down {
+    cursor: pointer;
+    padding: 6px;
+    background-color: var(--button-secondary-background);
+    border: none;
+    border-radius: 3px;
+    color: var(--text-normal);
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.1s ease;
+}
+
+.vc-useriq-test-move-up:hover:not(.disabled),
+.vc-useriq-test-move-down:hover:not(.disabled) {
+    background-color: var(--button-secondary-background-hover);
+}
+
+.vc-useriq-test-move-up.disabled,
+.vc-useriq-test-move-down.disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    pointer-events: none;
+    background-color: var(--button-secondary-background);
+}
+

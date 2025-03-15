@@ -7,7 +7,7 @@
 import { Button, Slider } from "@webpack/common";
 
 import { Native, scoreGames } from "../util/utils";
-import { BingoQuestion, Question, SingleChoiceQuestion } from "./questionTypes";
+import { BingoQuestion, LikertQuestion, Question, RankingQuestion, SingleChoiceQuestion } from "./questionTypes";
 
 export const questions: Question[] = [
     {
@@ -115,7 +115,7 @@ export const questions: Question[] = [
     },
     {
         id: "status",
-        title: "what is your most used Discord status?",
+        title: "What is your most used Discord status?",
         component: props => (
             <SingleChoiceQuestion
                 {...props}
@@ -177,6 +177,127 @@ export const questions: Question[] = [
         ),
         requireInput: true
     },
+    {
+        id: "punctuation",
+        title: "How frequently do you use proper punctuation when chatting?",
+        component: props => (
+            <LikertQuestion
+                {...props}
+                options={[
+                    "Never",
+                    "Rarely",
+                    "Sometimes",
+                    "Often",
+                    "Always"
+                ]}
+            />
+        ),
+        requireInput: true
+    },
+    {
+        id: "featureRanking",
+        title: "Rank the following Discord features from most to least important to you:",
+        component: props => (
+            <RankingQuestion
+                {...props}
+                items={[
+                    "Custom Emojis",
+                    "Voice Channels",
+                    "Server Boosts",
+                    "Direct Messaging",
+                    "Server Roles"
+                ]}
+            />
+        ),
+        requireInput: true
+    },
+    {
+        "id": "nitro",
+        "title": "How important is Discord Nitro to your overall experience?",
+        "component": props => (
+            <LikertQuestion
+                {...props}
+                options={[
+                    "Not at all",
+                    "Slightly",
+                    "Moderately",
+                    "Very",
+                    "Extremely"
+                ]}
+            />
+        ),
+        "requireInput": true
+    },
+    {
+        id: "discordMobile",
+        title: "How do you feel about Discord’s mobile app experience?",
+        component: props => (
+            <LikertQuestion
+                {...props}
+                options={[
+                    "Terrible",
+                    "Poor",
+                    "Neutral",
+                    "Good",
+                    "Excellent"
+                ]}
+            />
+        ),
+        requireInput: true
+    },
+    {
+        id: "muteServers",
+        title: "How likely are you to mute a Discord server if it becomes too active?",
+        component: props => (
+            <LikertQuestion
+                {...props}
+                options={[
+                    "Never",
+                    "Unlikely",
+                    "Neutral",
+                    "Likely",
+                    "Always"
+                ]}
+            />
+        ),
+        requireInput: true
+    },
+    {
+        id: "discordBots",
+        title: "How frequently do you engage with Discord bots?",
+        component: props => (
+            <LikertQuestion
+                {...props}
+                options={[
+                    "Never",
+                    "Rarely",
+                    "Sometimes",
+                    "Often",
+                    "Always"
+                ]}
+            />
+        ),
+        requireInput: true
+    },
+    {
+        id: "discordProfessional",
+        title: "How comfortable are you using Discord for professional or academic purposes?",
+        component: props => (
+            <LikertQuestion
+                {...props}
+                options={[
+                    "Not at all",
+                    "Slightly",
+                    "Moderately",
+                    "Very",
+                    "Extremely"
+                ]}
+            />
+        ),
+        requireInput: true
+    }
 
 ];
+
+
 

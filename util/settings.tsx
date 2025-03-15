@@ -11,7 +11,7 @@ import { Button, showToast } from "@webpack/common";
 
 import { useAuthorizationStore } from "../stores/authStore";
 import { TestModal } from "../test/test";
-import { hasUserTakenTest } from "./utils";
+import { hasUserTakenTest, UpdateAllIqs } from "./utils";
 
 export const settings = definePluginSettings({
     authorize: {
@@ -21,6 +21,9 @@ export const settings = definePluginSettings({
                 Authorize
             </Button><Button onClick={() => authorize()}>
                     take test
+                </Button>
+                <Button onClick={async () => await UpdateAllIqs()}>
+                    Reload Iqs
                 </Button></>
         )
     },
