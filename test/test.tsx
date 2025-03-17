@@ -9,7 +9,7 @@ import { Button, Forms, UserStore, useState } from "@webpack/common";
 
 import { useIQStore } from "../stores/iqStore";
 import { submitTest } from "../util/api";
-import { cl, ShinyButton, shuffleArray } from "../util/utils";
+import { cl, ShinyButton, shuffleArray, UpdateAllIqs } from "../util/utils";
 import { questions } from "./questions";
 
 let filteredQuestions = questions;
@@ -58,9 +58,11 @@ export function TestModal({ rootProps }: { rootProps: ModalProps; }) {
             return acc;
         }, {} as Record<string, string>);
         console.log("Submitted answers:", answersWithIds);
-        const iq = await submitTest(UserStore.getCurrentUser().id, answersWithIds);
-        useIQStore.getState().setIQ(UserStore.getCurrentUser().id, iq);
         rootProps.onClose();
+        const iq = await submitTest(UserStore.getCurrentUser().id, answersWithIds);
+        console.log(iq);
+        useIQStore.getState().setIQ(UserStore.getCurrentUser().id, iq);
+        await UpdateAllIqs();
     };
 
     return (

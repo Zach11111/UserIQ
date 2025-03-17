@@ -10,6 +10,7 @@ import { addMemberListDecorator, removeMemberListDecorator } from "@api/MemberLi
 import { addMessageDecoration, removeMessageDecoration } from "@api/MessageDecorations";
 import definePlugin from "@utils/types";
 
+import { useAuthorizationStore } from "./stores/authStore";
 import { useIQStore } from "./stores/iqStore";
 import { UserIQDecorator } from "./util/iqDecorator";
 import { settings } from "./util/settings";
@@ -34,11 +35,20 @@ export default definePlugin({
     settings,
     patches: [],
     // It might be likely you could delete these and go make patches above!
+
+    flux: {
+        CONNECTION_OPEN: () => {
+            useIQStore.getState().init();
+            useAuthorizationStore.getState().init();
+            iqUpdateTimer = setInterval(UpdateAllIqs, 60 * 1000 * 10);
+            UpdateAllIqs();
+        }
+    },
+
     async start() {
-        useIQStore.getState().init();
+
         addMessageDecoration("useriq", ({ message }) => <UserIQDecorator userId={message.author.id} />);
         addMemberListDecorator("useriq", ({ user }) => <UserIQDecorator userId={user.id} />);
-        iqUpdateTimer = setInterval(UpdateAllIqs, 60 * 1000 * 10);
     },
     stop() {
         removeMemberListDecorator("useriq");

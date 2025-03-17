@@ -10,7 +10,7 @@ import { findComponentByCodeLazy } from "@webpack";
 import { UserStore } from "@webpack/common";
 
 import { useIQStore } from "../stores/iqStore";
-import { getAllIQs } from "./api";
+import { getAllIQs, getIq } from "./api";
 
 
 export const cl = classNameFactory("vc-useriq-");
@@ -62,8 +62,11 @@ export async function getUserIq(userId) {
     }
 }
 
-export function hasUserTakenTest() {
-    return useIQStore.getState().getIQ(UserStore.getCurrentUser().id.toString()) !== null;
+export async function hasUserTakenTest() {
+    const hasLocalIQ = useIQStore.getState().getIQ(UserStore.getCurrentUser().id.toString()) !== null;
+    const serverIQ = await getIq(UserStore.getCurrentUser().id.toString());
+    const hasServerIQ = serverIQ !== undefined && serverIQ !== null;
+    return hasLocalIQ && hasServerIQ;
 }
 
 
@@ -72,3 +75,4 @@ export async function UpdateAllIqs() {
 
     useIQStore.getState().setAllIQs(iqs);
 }
+

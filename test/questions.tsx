@@ -252,11 +252,11 @@ export const questions: Question[] = [
             <LikertQuestion
                 {...props}
                 options={[
-                    "Never",
-                    "Unlikely",
-                    "Neutral",
-                    "Likely",
-                    "Always"
+                    "Not at all",
+                    "Slightly",
+                    "Moderately",
+                    "Very",
+                    "Extremely"
                 ]}
             />
         ),

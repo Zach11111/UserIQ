@@ -30,8 +30,8 @@ export const settings = definePluginSettings({
 });
 
 
-function authorize() {
-    if (hasUserTakenTest()) {
+async function authorize() {
+    if (await hasUserTakenTest()) {
         showToast("You have already taken the IQ test.");
         return;
     }
